@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "spring-mongo"
+
+  labels:
+    app: "testmongo"
+    type: "pod"
+    ambiente: "dev"
+    aplicacion: "testmongo"
+    area.negocio: "pruebas"
+    area.ti: "Desarrollo"
+    pais: "Colombia"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "testmongo"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: "testmongo"
+        type: "pod"
+        ambiente: "dev"
+        aplicacion: "testmongo"
+        area.negocio: "pruebas"
+        area.ti: "Desarrollo"
+        pais: "Colombia"
+    spec:
+      containers:
+        - image: "springmongo"
+          name: "testmongo"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+
